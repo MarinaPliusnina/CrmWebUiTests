@@ -28,6 +28,12 @@
         <artifactId>selenium-firefox-driver</artifactId>
         <version>3.141.59</version>
     </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>RELEASE</version>
+        <scope>test</scope>
+    </dependency>
 
 </dependencies>
 
@@ -45,6 +51,13 @@
             <version>3.0.0-M4</version>
         </plugin>
     </plugins>
+
+    <resources>
+        <resource>
+            <directory>src\test\resources</directory>
+        </resource>
+    </resources>
+
 </build>
 
 
