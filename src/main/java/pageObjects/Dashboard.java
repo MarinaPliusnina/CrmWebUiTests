@@ -2,9 +2,9 @@ package pageObjects;
 
 public class Dashboard {
 
-    public String XPathBtnHomePage = "";
-    public String XPathBtnTableCollapse = "";
-    public String XPathBtnTableRemove = "";
-    public String XPathTable = "";
+    public String homePageButton = "//a[contains(text(),'Home')]/..";
+    public String tableCollapseButton = "//i[@class='fa fa-minus']/..";
+    public String tableRemoveButton = "//i[@class='fa fa-times']/..";
+
 
 }

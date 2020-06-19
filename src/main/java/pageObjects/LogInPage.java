@@ -2,15 +2,15 @@ package pageObjects;
 
 public class LogInPage {
 
-    public String XPathTabSelectorLogin = "//a[@id='login-form-link']";
-    public String XPathTabLoginInpUsername = "//input[@id='username']";
-    public String XPathTabLoginInpPassword = "//input[@id='password']";
-    public String XPathTabButtonLogin = "//input[@id='login-submit']";
+    public String tabSelectorLogin = "//a[@id='login-form-link']";
+    public String usernameInputLogin = "//input[@id='username']";
+    public String passwordInputLogin = "//input[@id='password']";
+    public String loginButton = "//input[@id='login-submit']";
 
-    public String XPathTabSelectorRegister = "//a[@id='register-form-link']";
-    public String XPathTabRegisterInpUsername = "//input[@id='register-username']";
-    public String XPathTabRegisterInpEmail = "//input[@id='email']";
-    public String XPathTabRegisterInpPassword = "//input[@id='register-password']";
-    public String XPathTabButtonRegister = "//input[@id='register-submit']";
+    public String tabSelectorRegister = "//a[@id='register-form-link']";
+    public String usernameInputRegister = "//input[@id='register-username']";
+    public String emailInputRegister = "//input[@id='email']";
+    public String passwordInputRegister = "//input[@id='register-password']";
+    public String registerButton = "//input[@id='register-submit']";
 
 }
