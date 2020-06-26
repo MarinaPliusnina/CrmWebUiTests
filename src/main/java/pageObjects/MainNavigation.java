@@ -1,5 +1,8 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 public class MainNavigation {
 
     public String dashboardButton = "//span[contains(text(),'Dashboard')]/..";
@@ -24,4 +27,11 @@ public class MainNavigation {
     public String paymentsButton= "//span[contains(text(),'Платежи')]";
     public String usersButton= "//span[contains(text(),'Пользователи')]";
     public String cashFlowButton= "//span[contains(text(),'Движение денег')]";
+
+    public void navigateMentorsPage(WebDriver driver) {
+
+        By byMentorsButton = new By.ByXPath(mentorsButton);
+
+        driver.findElement(byMentorsButton).click();
+    }
 }

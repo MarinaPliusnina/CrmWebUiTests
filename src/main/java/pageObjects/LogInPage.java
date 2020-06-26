@@ -1,5 +1,8 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 public class LogInPage {
 
     public String tabSelectorLogin = "//a[@id='login-form-link']";
@@ -13,4 +16,11 @@ public class LogInPage {
     public String passwordInputRegister = "//input[@id='register-password']";
     public String registerButton = "//input[@id='register-submit']";
 
+    public void login(WebDriver driver) {
+
+        driver.get("http://serviceacc.foxminded.com.ua/");
+        driver.findElement(new By.ByXPath("//input[@id='username']")).sendKeys("admin");
+        driver.findElement(new By.ByXPath("//input[@id='password']")).sendKeys("admin");
+        driver.findElement(new By.ByXPath("//input[@id='login-submit']")).click();
+    }
 }
