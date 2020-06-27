@@ -1,44 +1,21 @@
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import pageObjects.LogInPage;
-import pageObjects.MainNavigation;
 import pageObjects.Mentors;
 
-public class MentorsTests {
+public class MentorsTests extends BaseTest{
 
     private static Mentors mentors;
-
-    private static LogInPage logInPage;
-
-    private static WebDriver driver;
-
-    private static MainNavigation mainNavigation;
 
     @BeforeClass
     public static void beforeClass() {
 
         mentors = new Mentors();
-        driver = new ChromeDriver();
-        logInPage = new LogInPage();
-        mainNavigation = new MainNavigation();
-
-        logInPage.login(driver);
         mainNavigation.navigateMentorsPage(driver);
-    }
-
-    @AfterClass
-    public static void afterClass() {
-
-        driver.close();
     }
 
     @Test

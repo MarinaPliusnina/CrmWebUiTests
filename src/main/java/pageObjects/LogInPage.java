@@ -16,9 +16,9 @@ public class LogInPage {
     public String passwordInputRegister = "//input[@id='register-password']";
     public String registerButton = "//input[@id='register-submit']";
 
-    public void login(WebDriver driver) {
+    public void login(WebDriver driver, String url) {
 
-        driver.get("http://serviceacc.foxminded.com.ua/");
+        driver.get(url);
         driver.findElement(new By.ByXPath("//input[@id='username']")).sendKeys("admin");
         driver.findElement(new By.ByXPath("//input[@id='password']")).sendKeys("admin");
         driver.findElement(new By.ByXPath("//input[@id='login-submit']")).click();
