@@ -16,6 +16,6 @@ public class Config {
             ex.printStackTrace();
         }
 
-        return prop.getProperty("test.url");
+        return prop.getProperty(s);
     }
 }
