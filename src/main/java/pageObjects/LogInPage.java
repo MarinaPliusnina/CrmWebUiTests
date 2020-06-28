@@ -2,11 +2,19 @@ package pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LogInPage {
 
+    private WebDriver driver;
+
     public String tabSelectorLogin = "//a[@id='login-form-link']";
-    public String usernameInputLogin = "//input[@id='username']";
+
+    @FindBy(xpath = "//input[@id='username']")
+    private WebElement usernameInputLogin;
+
     public String passwordInputLogin = "//input[@id='password']";
     public String loginButton = "//input[@id='login-submit']";
 
@@ -16,10 +24,17 @@ public class LogInPage {
     public String passwordInputRegister = "//input[@id='register-password']";
     public String registerButton = "//input[@id='register-submit']";
 
+    public LogInPage(WebDriver driver)  {
+
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
     public void login(WebDriver driver, String url) {
 
         driver.get(url);
-        driver.findElement(new By.ByXPath("//input[@id='username']")).sendKeys("admin");
+
+        usernameInputLogin.sendKeys("admin");
         driver.findElement(new By.ByXPath("//input[@id='password']")).sendKeys("admin");
         driver.findElement(new By.ByXPath("//input[@id='login-submit']")).click();
     }
