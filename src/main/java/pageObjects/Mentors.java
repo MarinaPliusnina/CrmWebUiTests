@@ -6,26 +6,41 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class Mentors {
 
-    public String createNewEmployeeButton = "//button[contains(text(),'Create')]";
+    private WebDriver driver;
 
-    public String searchButton = "//div[@class='pull-right search']/input";
+    @FindBy(xpath = "//button[contains(text(),'Create')]")
+    private WebElement createNewEmployeeButton;
 
-    public String refreshButton = "//button[@name='refresh']";
+    @FindBy(xpath = "//div[@class='pull-right search']/input")
+    private WebElement searchButton;
 
-    public String tableEmployeesRows = "//*[@class='table table-hover']//tr";
+    @FindBy(xpath = "//button[@name='refresh']")
+    private WebElement refreshButton;
 
-    public String spanPaginationInfo = "//span[@class='pagination-info']";
+   @FindAll(@FindBy(xpath = "//*[@class='table table-hover']//tr"))
+    private List<WebElement> tableEmployeesRows;
 
-    public String tableEmployeesHeaders = "//*[@class='table table-hover']//th";
+    @FindBy(xpath = "//span[@class='pagination-info']")
+    private WebElement spanPaginationInfo;
+
+    @FindAll(@FindBy(xpath = "//*[@class='table table-hover']//th"))
+    private List<WebElement> tableEmployeesHeaders;
+
+    public Mentors(WebDriver driver)  {
+
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
     public  int getDescribedRowCount(WebDriver driver) {
 
-        By byTableEmployees = new By.ByXPath(tableEmployeesRows);
-
-        List<WebElement> trWebElements = driver.findElements(byTableEmployees);
+        List<WebElement> trWebElements = tableEmployeesRows;
 
         int describedRowCount =  trWebElements.size() - 1;
 
@@ -34,9 +49,7 @@ public class Mentors {
 
     public int getRowCount(WebDriver driver) {
 
-        By bySpanPaginationInfo = new By.ByXPath(spanPaginationInfo);
-
-        WebElement recordsTotalNumber = driver.findElement(bySpanPaginationInfo);
+        WebElement recordsTotalNumber = spanPaginationInfo;
 
         String recordsTotalNumberText = recordsTotalNumber.getText();
 
@@ -76,9 +89,7 @@ public class Mentors {
 
     private List<WebElement> getEmployeeTableRows(WebDriver driver) {
 
-        By byTableEmployeesRows = new By.ByXPath(tableEmployeesRows);
-
-        List<WebElement> tableRows = driver.findElements(byTableEmployeesRows);
+        List<WebElement> tableRows = tableEmployeesRows;
 
         tableRows = tableRows.subList(1,tableRows.size());
 
@@ -87,9 +98,7 @@ public class Mentors {
 
     private int getColumnNumber(WebDriver driver, String columnName) throws Exception {
 
-        By byTableEmployeesHeaders = new By.ByXPath(tableEmployeesHeaders);
-
-        List<WebElement> headerRow = driver.findElements(byTableEmployeesHeaders);
+        List<WebElement> headerRow = tableEmployeesHeaders;
 
         for (int i=0; i < headerRow.size(); i++) {
 

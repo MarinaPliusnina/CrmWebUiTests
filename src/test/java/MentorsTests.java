@@ -2,19 +2,24 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import pageObjects.Mentors;
 
 public class MentorsTests extends BaseTest{
 
-    private static Mentors mentors;
+    private Mentors mentors;
 
-    @BeforeClass
-    public static void beforeClass() {
+    public MentorsTests() throws Exception {
+        super();
 
-        mentors = new Mentors();
+        mentors = new Mentors(driver);
+    }
+
+    @Before
+    public void before() {
+
         mainNavigation.navigateMentorsPage(driver);
     }
 

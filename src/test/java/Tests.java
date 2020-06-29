@@ -2,17 +2,12 @@ import org.junit.Test;
 
 public class Tests extends BaseTest {
 
-    @Test
-    public void ChromeExample() {
-
-        driver.get(testUrl);
+    public Tests() throws Exception {
+        super();
     }
 
     @Test
-    public void FirefoxExample() {
-
-        // ???
-        // WebDriver driver = new FirefoxDriver();
+    public void Example() {
 
         driver.get(testUrl);
     }

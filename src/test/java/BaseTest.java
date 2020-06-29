@@ -1,6 +1,7 @@
 import config.Config;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,36 +10,40 @@ import pageObjects.MainNavigation;
 
 public class BaseTest {
 
-    protected static LogInPage logInPage;
+    protected LogInPage logInPage;
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
-    protected static MainNavigation mainNavigation;
+    protected MainNavigation mainNavigation;
 
-    protected static String testUrl;
+    protected String testUrl;
 
-    private static String driverBrowser;
+    private String driverBrowser;
 
-    @BeforeClass
-    public static void beforeClassBase() throws Exception {
+    public BaseTest() throws Exception {
 
         testUrl = Config.getProperty("test.url");
 
         initBrowserDriver();
 
         logInPage = new LogInPage(driver);
-        mainNavigation = new MainNavigation();
+        mainNavigation = new MainNavigation(driver);
+
+    }
+
+    @Before
+    public void beforeClassBase()  {
 
         logInPage.login(driver, testUrl);
     }
 
-    @AfterClass
-    public static void afterClass() {
+    @After
+    public void afterClass() {
 
         driver.close();
     }
 
-    private static void initBrowserDriver() throws Exception {
+    private void initBrowserDriver() throws Exception {
 
         driverBrowser = Config.getProperty("driver.browser");
 
