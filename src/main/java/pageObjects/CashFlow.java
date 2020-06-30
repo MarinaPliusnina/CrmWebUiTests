@@ -1,9 +1,29 @@
 package pageObjects;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
 public class CashFlow {
 
-    public String serviceSelector = "//select[@id='selectedConsultancyField']";
-    public String beginDateInput = "//input[@id='beginDateField']";
-    public String endDateInput = "//input[@id='endDateField']";
-    public String makeReportButton = "//button[contains(text(),'Make report')]";
+    private WebDriver driver;
+
+    @FindBy(xpath = "//select[@id='selectedConsultancyField']")
+    private WebElement serviceSelector;
+
+    @FindBy(xpath = "//input[@id='beginDateField']")
+    private WebElement beginDateInput;
+
+    @FindBy(xpath = "//input[@id='endDateField']")
+    private WebElement endDateInput;
+
+    @FindBy(xpath = "//button[contains(text(),'Make report')]")
+    private WebElement makeReportButton;
+
+    public CashFlow (WebDriver driver)  {
+
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 }

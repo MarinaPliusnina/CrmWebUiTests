@@ -1,39 +1,14 @@
-import config.Config;
 import org.junit.Test;
-import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
+public class Tests extends BaseTest {
 
-public class Tests {
-
-    private static String testUrl;
-
-    @BeforeClass
-    public static void BeforeClassInit() {
-
-        testUrl = Config.getProperty("test.url");
-
+    public Tests() throws Exception {
+        super();
     }
 
     @Test
-    public void ChromeExample() {
-
-        WebDriver driver = new ChromeDriver();
+    public void Example() {
 
         driver.get(testUrl);
-
-        driver.quit();
-    }
-
-    @Test
-    public void FirefoxExample() {
-
-        WebDriver driver = new FirefoxDriver();
-
-        driver.get(testUrl);
-
-        driver.quit();
     }
 }
