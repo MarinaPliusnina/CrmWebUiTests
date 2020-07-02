@@ -86,4 +86,8 @@ public class MainNavigation {
 
         mentorsButton.click();
     }
+    public void navigateClientsPage(WebDriver driver) {
+
+        clientsButton.click();
+    }
 }
