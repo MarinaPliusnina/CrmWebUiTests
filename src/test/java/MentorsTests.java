@@ -27,7 +27,7 @@ public class MentorsTests extends BaseTest{
     public void testNameColumnValues() throws Exception {
 
         // Act
-        List<String> nameColumnValues = mentors.getColumnValues(driver,"name");
+        List<String> nameColumnValues = mentors.getColumnValues("name");
 
         // Assert
         List<String> nameColumnValuesExpected =  Arrays.asList("Charles Xavier", "James Howlett", "Scott Summers","Ororo Munroe","Test Test");
@@ -38,7 +38,7 @@ public class MentorsTests extends BaseTest{
     public void testWorkloadColumnValues() throws Exception {
 
         // Act
-        List<String> workloadColumnValues = mentors.getColumnValues(driver,"workload");
+        List<String> workloadColumnValues = mentors.getColumnValues("workload");
 
         // Assert
         List<String> workloadColumnValuesExpected =  Arrays.asList("2/20", "0/1", "1/3","1/10","0/2");

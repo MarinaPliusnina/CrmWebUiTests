@@ -13,7 +13,7 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public class Clients {
+public class Clients extends PageObjects{
 
     private WebDriver driver;
 
@@ -89,7 +89,13 @@ public class Clients {
 
         newClientLastName.sendKeys(lastName);
 
+    }
 
+    public List<String> getColumnValues(String columnName) throws Exception {
+
+        List<String> vals = super.getColumnValues(columnName, tableClientsRows, tableClientsHeaders);
+
+        return vals;
 
     }
 
@@ -138,61 +144,6 @@ public class Clients {
         buttonGoToClientsPage.click();
     }
 
-    public List<String>  getColumnValues(String columnName) throws Exception {
-
-        int wantedColumnNumber = getColumnNumber(columnName);
-
-        List<WebElement> tableRows = getEmployeeTableRows();
-
-        List<String> resultArray = getColumnValues(wantedColumnNumber, tableRows);
-
-        return resultArray;
-    }
-
-    private List<String> getColumnValues(int wantedColumnNumber, List<WebElement> tableRows) {
-
-        List<String> resultArray = new ArrayList<String>();
-
-        for (WebElement currentRow : tableRows) {
-
-            List<WebElement> cells = currentRow.findElements(new By.ByTagName("td"));
-
-            String cellText = cells.get(wantedColumnNumber).getText();
-
-            resultArray.add(cellText);
-        }
-
-        return resultArray;
-    }
-
-    private List<WebElement> getEmployeeTableRows() {
-
-        List<WebElement> tableRows = tableClientsRows;
-
-        tableRows = tableRows.subList(1,tableRows.size());
-
-        return tableRows;
-    }
-
-    private int getColumnNumber(String columnName) throws Exception {
-
-        List<WebElement> headerRow = tableClientsHeaders;
-
-        for (int i=0; i < headerRow.size(); i++) {
-
-            WebElement currentWebElement = headerRow.get(i);
-
-            String currentWebElementName = currentWebElement.getText();
-
-            if (currentWebElementName.equals(columnName)) {
-
-                return i;
-
-            }
-        }
-
-        throw new Exception("Column name not found");
-    }
 }
 
 
