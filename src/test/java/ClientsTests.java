@@ -1,10 +1,11 @@
 import com.sun.tools.javac.util.Assert;
+import dto.NewClientTestData;
 import org.junit.Test;
 
 import pageObjects.Clients;
 
-import java.util.Date;
 import java.util.List;
+
 
 public class ClientsTests extends BaseTest{
 
@@ -19,38 +20,22 @@ public class ClientsTests extends BaseTest{
     @Test
     public void newClientCreation() throws Exception {
 
+        // Act
         mainNavigation.navigateClientsPage(driver);
 
-        //declare constants values (test data)
-        String timestamp = Long.toString((new Date().getTime())/1000);
+        NewClientTestData clientTestData = NewClientTestData.createTestData1();
 
-        String firstName = "Meryl" +timestamp;
-
-        String lastName = "Streep" + timestamp;
-
-        String email = "meril_streep@gmail.com";
-
-        String country = "USA";
-
-        String phone ="987654321";
-
-        String skype = "meryl_streep";
-
-        //put first name to text field
-        clients.createClient(firstName, lastName);
+        clients.createClient(clientTestData);
 
         clients.saveButtonPopUp();
 
-        //"Go back" button click
         clients.goToClientsPage();
 
-        //filter by name
-        clients.filterByName(firstName);
+        clients.filterByName(clientTestData.getFirstName());
 
-        //navigate to the table
+        // Assert
         List<String> vals = clients.getColumnValues("Name");
 
-        //check if they are equal
-        Assert.check(vals.contains(firstName + " " + lastName));
+        Assert.check(vals.contains(clientTestData.getFullName()));
     }
 }

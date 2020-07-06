@@ -1,5 +1,6 @@
 package pageObjects;
 
+import dto.NewClientTestData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -81,15 +82,15 @@ public class Clients extends PageObjects{
         PageFactory.initElements(driver, this);
     }
 
-    public void createClient(String firstName, String lastName) throws InterruptedException {
+    public void createClient(NewClientTestData newClientTestData) throws InterruptedException {
 
         createNewClientButton.click();
 
         Thread.sleep(2000);
 
-        newClientFirstName.sendKeys(firstName);
+        newClientFirstName.sendKeys(newClientTestData.getFirstName());
 
-        newClientLastName.sendKeys(lastName);
+        newClientLastName.sendKeys(newClientTestData.getLastName());
 
     }
 
