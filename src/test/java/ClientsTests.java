@@ -1,12 +1,8 @@
 import com.sun.tools.javac.util.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
 import pageObjects.Clients;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

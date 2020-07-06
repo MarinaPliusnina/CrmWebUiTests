@@ -75,7 +75,7 @@ public class Mentors extends PageObjects{
 
         List<WebElement> trWebElements = tableEmployeesRows;
 
-        int describedRowCount =  trWebElements.size() - 1;
+        int describedRowCount =  trWebElements.size();
 
         return describedRowCount;
     }

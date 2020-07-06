@@ -81,9 +81,11 @@ public class Clients extends PageObjects{
         PageFactory.initElements(driver, this);
     }
 
-    public void createClient(String firstName, String lastName) {
+    public void createClient(String firstName, String lastName) throws InterruptedException {
 
         createNewClientButton.click();
+
+        Thread.sleep(2000);
 
         newClientFirstName.sendKeys(firstName);
 
