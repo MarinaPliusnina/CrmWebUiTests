@@ -90,4 +90,9 @@ public class MainNavigation {
 
         clientsButton.click();
     }
+
+    public void navigateServicesPage(WebDriver driver) {
+
+        servicesButton.click();
+    }
 }

@@ -8,13 +8,37 @@ import java.util.List;
 
 public class PageObjects {
 
+    protected List<WebElement> getColumnLinks(String columnName, List<WebElement> tableRows, List<WebElement> headerCells) throws Exception {
+
+        int wantedColumnNumber = getColumnNumber(columnName, headerCells);
+
+        List<WebElement> resultArray = getColumnLinks(wantedColumnNumber, tableRows);
+
+        return resultArray;
+    }
+
+    private List<WebElement> getColumnLinks(int wantedColumnNumber, List<WebElement> tableRows) {
+
+        List<WebElement> resultArray = new ArrayList<WebElement>();
+
+        for (WebElement currentRow : tableRows) {
+
+            List<WebElement> cells = currentRow.findElements(new By.ByTagName("td"));
+
+            WebElement cellText = cells.get(wantedColumnNumber).findElement(new By.ByTagName("a"));
+
+            resultArray.add(cellText);
+        }
+
+        return resultArray;
+    }
+
+
     protected List<String> getColumnValues(String columnName, List<WebElement> tableRows, List<WebElement> headerCells) throws Exception {
 
         int wantedColumnNumber = getColumnNumber(columnName, headerCells);
 
-        List<WebElement> tableRowsClients = getEmployeeTableRows(tableRows);
-
-        List<String> resultArray = getColumnValues(wantedColumnNumber, tableRowsClients);
+        List<String> resultArray = getColumnValues(wantedColumnNumber, tableRows);
 
         return resultArray;
     }
@@ -33,13 +57,6 @@ public class PageObjects {
         }
 
         return resultArray;
-    }
-
-    private List<WebElement> getEmployeeTableRows(List<WebElement> tableRows) {
-
-        tableRows = tableRows.subList(1,tableRows.size());
-
-        return tableRows;
     }
 
     private int getColumnNumber(String columnName, List<WebElement> headerCells) throws Exception {

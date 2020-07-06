@@ -1,10 +1,13 @@
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.openqa.selenium.WebElement;
 import pageObjects.Mentors;
 
 public class MentorsTests extends BaseTest{
@@ -46,7 +49,7 @@ public class MentorsTests extends BaseTest{
     }
 
     @Test
-    public void testRowTotalNumber() {
+    public void testRowTotalNumber() throws Exception {
 
         // Act
         int factRowCount = mentors.getRowCount(driver);
@@ -55,4 +58,44 @@ public class MentorsTests extends BaseTest{
         // Assert
         Assert.assertEquals(describedRowCount, factRowCount);
     }
+
+    @Test
+    public void newMentorsCreation() throws Exception {
+
+        mainNavigation.navigateMentorsPage(driver);
+
+        //declare constants values (test data)
+        String timestamp = Long.toString((new Date().getTime())/1000);
+
+        String firstName = "Kira" +timestamp;
+
+        String lastName = "Knightley" + timestamp;
+
+        String maxClients = "5";
+
+        //put first name,last name, max workload to text field
+        mentors.createEmployee(firstName, lastName, maxClients);
+
+        mentors.saveButtonPopUp();
+
+        //"Go back" button click
+        mentors.toMentorsPageButton();
+
+        //filter by name
+        mentors.filterByName(firstName);
+
+        //navigate to the table
+        List<String> vals = mentors.getColumnValues("name");
+
+        //check if they are equal
+       Assert.assertTrue(vals.contains(firstName + " " + lastName));
+
+        //navigate to record
+        List<WebElement> record = mentors.getColumnLinks("name");
+
+        //delete record
+        mentors.deleteService(record.get(0));
+
+    }
+
 }

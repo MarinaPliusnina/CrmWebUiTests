@@ -68,7 +68,7 @@ public class Clients extends PageObjects{
     @FindBy(xpath = "//div[@class='btn-group']//button[@class='btn btn-primary'][contains(text(),'Save')]")
     private WebElement buttonSave;
 
-    @FindAll(@FindBy(xpath = "//table[@class='table table-hover']//tr"))
+    @FindAll(@FindBy(xpath = "//table[@class='table table-hover']/tbody/tr"))
     private List<WebElement> tableClientsRows;
 
     @FindAll(@FindBy(xpath = "//table[@class='table table-hover']//th"))
