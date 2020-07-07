@@ -1,10 +1,10 @@
 import com.sun.tools.javac.util.Assert;
+import testdata.NewServiceTestData;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import pageObjects.Services;
 
-import java.util.Date;
 import java.util.List;
 
 public class ServicesTests extends BaseTest{
@@ -20,46 +20,28 @@ public class ServicesTests extends BaseTest{
     @Test
     public void newServiceCreation() throws Exception {
 
+        //Act
         mainNavigation.navigateServicesPage(driver);
 
-        //declare constants values (test data)
-        String timestamp = Long.toString((new Date().getTime())/1000);
+        NewServiceTestData serviceTestData = NewServiceTestData.createTestData1();
 
-        String title = "Travel arrangements" +timestamp;
-
-        String description = "Searching of travel options,booking hotels and tickets" + timestamp;
-
-        String price = "3000";
-
-        String employeeRate = "2000";
-
-
-        //put first name to text field
-        services.createService(title, description, price, employeeRate);
+        services.createService(serviceTestData);
 
         services.saveService();
 
-        //filter by name
-        services.filterByTitle(title);
+        services.filterByTitle(serviceTestData.getTitle());
 
-        //navigate to the table
-
+        //Assert
         List<String> vals = services.getColumnValues("Name");
 
-        //check if they are equal
-        Assert.check(vals.contains(title));
+        Assert.check(vals.contains(serviceTestData.getTitle()));
     }
 
     @After
      public void deleteOutputTestData() throws Exception {
 
-        //navigate to record
         List<WebElement> record = services.getColumnLinks("Name");
 
-
-        //delete record
         services.deleteService(record.get(0));
-
     }
-
 }

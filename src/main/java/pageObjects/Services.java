@@ -1,5 +1,6 @@
 package pageObjects;
 
+import testdata.NewServiceTestData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -54,17 +55,17 @@ public class Services extends PageObjects{
         PageFactory.initElements(driver, this);
     }
 
-    public void createService(String title, String description, String servicePrice, String employeeRate) {
+    public void createService(NewServiceTestData newServiceTestData) {
 
         newConsultancyButton.click();
 
-        inputTitle.sendKeys(title);
+        inputTitle.sendKeys(newServiceTestData.getTitle());
 
-        inputDescription.sendKeys(description);
+        inputDescription.sendKeys(newServiceTestData.getDescription());
 
-        inputPriceUAH.sendKeys(servicePrice);
+        inputPriceUAH.sendKeys(newServiceTestData.getPrice());
 
-        inputEmployeeRateUAH.sendKeys(employeeRate);
+        inputEmployeeRateUAH.sendKeys(newServiceTestData.getEmployeeRate());
     }
 
     public void saveService() {
@@ -75,6 +76,7 @@ public class Services extends PageObjects{
     public void filterByTitle(String name) throws InterruptedException {
 
         searchInput.sendKeys(name);
+
         Thread.sleep(2000);
     }
     public List<String> getColumnValues(String columnName) throws Exception {
@@ -92,10 +94,13 @@ public class Services extends PageObjects{
     }
 
     public void deleteService(WebElement record) throws InterruptedException {
-        record.click();
-        deleteServiceButton.click();
-        Thread.sleep(2000);
-        deleteConfirmationButtonPopUp.click();
 
+        record.click();
+
+        deleteServiceButton.click();
+
+        Thread.sleep(2000);
+
+        deleteConfirmationButtonPopUp.click();
     }
 }

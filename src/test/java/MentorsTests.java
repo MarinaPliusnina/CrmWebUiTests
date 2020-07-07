@@ -1,8 +1,7 @@
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
+import testdata.NewMentorTestData;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +33,7 @@ public class MentorsTests extends BaseTest{
 
         // Assert
         List<String> nameColumnValuesExpected =  Arrays.asList("Charles Xavier", "James Howlett", "Scott Summers","Ororo Munroe","Test Test");
+
         Assert.assertEquals(nameColumnValuesExpected, nameColumnValues);
     }
 
@@ -45,6 +45,7 @@ public class MentorsTests extends BaseTest{
 
         // Assert
         List<String> workloadColumnValuesExpected =  Arrays.asList("2/20", "0/1", "1/3","1/10","0/2");
+
         Assert.assertEquals(workloadColumnValuesExpected, workloadColumnValues);
     }
 
@@ -53,6 +54,7 @@ public class MentorsTests extends BaseTest{
 
         // Act
         int factRowCount = mentors.getRowCount(driver);
+
         int describedRowCount = mentors.getDescribedRowCount(driver);
 
         // Assert
@@ -64,38 +66,23 @@ public class MentorsTests extends BaseTest{
 
         mainNavigation.navigateMentorsPage(driver);
 
-        //declare constants values (test data)
-        String timestamp = Long.toString((new Date().getTime())/1000);
+        NewMentorTestData mentorTestData = NewMentorTestData.createTestData1();
 
-        String firstName = "Kira" +timestamp;
-
-        String lastName = "Knightley" + timestamp;
-
-        String maxClients = "5";
-
-        //put first name,last name, max workload to text field
-        mentors.createEmployee(firstName, lastName, maxClients);
+        mentors.createEmployee(mentorTestData);
 
         mentors.saveButtonPopUp();
 
-        //"Go back" button click
         mentors.toMentorsPageButton();
 
-        //filter by name
-        mentors.filterByName(firstName);
+        mentors.filterByName(mentorTestData.getFirstName());
 
-        //navigate to the table
         List<String> vals = mentors.getColumnValues("name");
 
-        //check if they are equal
-       Assert.assertTrue(vals.contains(firstName + " " + lastName));
+       Assert.assertTrue(vals.contains(mentorTestData.getFullName()));
 
-        //navigate to record
         List<WebElement> record = mentors.getColumnLinks("name");
 
-        //delete record
         mentors.deleteService(record.get(0));
-
     }
 
 }

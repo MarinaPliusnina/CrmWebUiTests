@@ -1,5 +1,5 @@
 import com.sun.tools.javac.util.Assert;
-import dto.NewClientTestData;
+import testdata.NewClientTestData;
 import org.junit.Test;
 
 import pageObjects.Clients;

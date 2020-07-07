@@ -27,8 +27,8 @@ public class BaseTest {
         initBrowserDriver();
 
         logInPage = new LogInPage(driver);
-        mainNavigation = new MainNavigation(driver);
 
+        mainNavigation = new MainNavigation(driver);
     }
 
     @Before

@@ -1,18 +1,13 @@
 package pageObjects;
 
-import dto.NewClientTestData;
-import org.openqa.selenium.By;
+import testdata.NewClientTestData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
 import java.util.List;
-
-
-import static java.lang.Thread.sleep;
 
 public class Clients extends PageObjects{
 
@@ -105,6 +100,7 @@ public class Clients extends PageObjects{
     public void filterByName(String name) throws InterruptedException {
 
         searchInput.sendKeys(name);
+
         Thread.sleep(2000);
     }
 

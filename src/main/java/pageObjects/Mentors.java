@@ -2,6 +2,7 @@ package pageObjects;
 
 import java.util.List;
 
+import testdata.NewMentorTestData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -57,18 +58,19 @@ public class Mentors extends PageObjects{
         PageFactory.initElements(driver, this);
     }
 
-     public void createEmployee(String firstName, String lastName, String workload) throws InterruptedException {
+     public void createEmployee(NewMentorTestData newMentorTestData) throws InterruptedException {
+
+        Thread.sleep(2000);
 
         createNewEmployeeButton.click();
 
          Thread.sleep(2000);
 
-        inputFirstNamePopUp.sendKeys(firstName);
+        inputFirstNamePopUp.sendKeys(newMentorTestData.getFirstName());
 
-        inputLastNamePopUp.sendKeys(lastName);
+        inputLastNamePopUp.sendKeys(newMentorTestData.getLastName());
 
-        inputMaxClientsPopUp.sendKeys(workload);
-
+        inputMaxClientsPopUp.sendKeys(newMentorTestData.getMaxClients());
     }
 
     public  int getDescribedRowCount(WebDriver driver) {
@@ -125,10 +127,13 @@ public class Mentors extends PageObjects{
     }
 
     public void deleteService(WebElement record) throws InterruptedException {
-        record.click();
-        deleteMentorsButton.click();
-        Thread.sleep(2000);
-        deleteConfirmationButtonPopUp.click();
 
+        record.click();
+
+        deleteMentorsButton.click();
+
+        Thread.sleep(2000);
+
+        deleteConfirmationButtonPopUp.click();
     }
 }
