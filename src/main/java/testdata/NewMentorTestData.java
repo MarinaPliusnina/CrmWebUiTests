@@ -29,7 +29,7 @@ public class NewMentorTestData {
         return this.maxClients;
     }
 
-    public static NewMentorTestData createTestData1() {
+    public static NewMentorTestData createNewMentorTestData() {
 
         NewMentorTestData newMentorTestData = new NewMentorTestData();
 

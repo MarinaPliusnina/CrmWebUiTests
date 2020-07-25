@@ -32,7 +32,7 @@ public class NewServiceTestData {
         return this.employeeRate;
     }
 
-    public static NewServiceTestData createTestData1() {
+    public static NewServiceTestData createNewServiceTestData() {
 
         NewServiceTestData newServiceTestData = new NewServiceTestData();
 

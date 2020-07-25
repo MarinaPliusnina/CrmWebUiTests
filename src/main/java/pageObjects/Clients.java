@@ -1,17 +1,17 @@
 package pageObjects;
 
 import testdata.NewClientTestData;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 public class Clients extends PageObjects{
-
-    private WebDriver driver;
 
     @FindBy(xpath = "//button[contains(text(),'Create Client')]")
     private WebElement createNewClientButton;
@@ -70,18 +70,21 @@ public class Clients extends PageObjects{
     @FindAll(@FindBy(xpath = "//table[@class='table table-hover']//th"))
     private List<WebElement> tableClientsHeaders;
 
+    @FindBy(xpath = "//span[@class='pagination-info']")
+    private WebElement recordsTotalNumber;
 
     public Clients(WebDriver driver) {
 
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
+
     }
 
     public void createClient(NewClientTestData newClientTestData) throws InterruptedException {
 
         createNewClientButton.click();
 
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(newClientFirstName));
 
         newClientFirstName.sendKeys(newClientTestData.getFirstName());
 
@@ -99,9 +102,12 @@ public class Clients extends PageObjects{
 
     public void filterByName(String name) throws InterruptedException {
 
+        String oldTotalNumber = recordsTotalNumber.getText();
+
         searchInput.sendKeys(name);
 
-        Thread.sleep(2000);
+        WaitTextChanged(recordsTotalNumber, oldTotalNumber);
+
     }
 
     public void saveButtonPopUp() {

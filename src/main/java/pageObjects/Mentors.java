@@ -8,10 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Mentors extends PageObjects{
-
-    private WebDriver driver;
 
     @FindBy(xpath = "//button[contains(text(),'Create')]")
     private WebElement createNewEmployeeButton;
@@ -52,19 +51,21 @@ public class Mentors extends PageObjects{
     @FindBy(xpath = "//button[contains(text(),'Yes')]")
     private WebElement deleteConfirmationButtonPopUp;
 
+    @FindBy(xpath = "//span[@class='pagination-info']")
+    private WebElement recordsTotalNumber;
+
     public Mentors(WebDriver driver)  {
 
-        this.driver = driver;
+        super(driver);
+
         PageFactory.initElements(driver, this);
     }
 
      public void createEmployee(NewMentorTestData newMentorTestData) throws InterruptedException {
 
-        Thread.sleep(2000);
-
         createNewEmployeeButton.click();
 
-         Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(inputFirstNamePopUp));
 
         inputFirstNamePopUp.sendKeys(newMentorTestData.getFirstName());
 
@@ -121,9 +122,11 @@ public class Mentors extends PageObjects{
 
     public void filterByName(String firstName) throws InterruptedException{
 
+        String oldTotalNumber = recordsTotalNumber.getText();
+
         searchButton.sendKeys(firstName);
 
-        Thread.sleep(2000);
+        WaitTextChanged(recordsTotalNumber, oldTotalNumber);
     }
 
     public void deleteService(WebElement record) throws InterruptedException {
@@ -132,7 +135,7 @@ public class Mentors extends PageObjects{
 
         deleteMentorsButton.click();
 
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(deleteConfirmationButtonPopUp));
 
         deleteConfirmationButtonPopUp.click();
     }

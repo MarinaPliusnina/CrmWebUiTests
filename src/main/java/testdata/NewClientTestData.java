@@ -31,7 +31,7 @@ public class NewClientTestData {
         return this.firstName + " " + this.lastName;
     }
 
-    public static NewClientTestData createTestData1()
+    public static NewClientTestData createNewClientTestData()
     {
         NewClientTestData newClientTestData = new NewClientTestData();
 

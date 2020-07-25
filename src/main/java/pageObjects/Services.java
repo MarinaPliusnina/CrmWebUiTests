@@ -1,17 +1,17 @@
 package pageObjects;
 
 import testdata.NewServiceTestData;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 public class Services extends PageObjects{
-
-    private WebDriver driver;
 
     @FindBy(xpath = "//a[contains(text(),'New consultancy')]")
     private WebElement newConsultancyButton;
@@ -49,10 +49,15 @@ public class Services extends PageObjects{
     @FindBy(xpath = "//button[contains(text(),'Yes')]")
     private WebElement deleteConfirmationButtonPopUp;
 
+    @FindBy(xpath = "//span[@class='pagination-info']")
+    private WebElement recordsTotalNumber;
+
     public Services (WebDriver driver)  {
 
-        this.driver = driver;
+        super(driver);
+
         PageFactory.initElements(driver, this);
+
     }
 
     public void createService(NewServiceTestData newServiceTestData) {
@@ -75,10 +80,14 @@ public class Services extends PageObjects{
 
     public void filterByTitle(String name) throws InterruptedException {
 
+        String oldTotalNumber = recordsTotalNumber.getText();
+
         searchInput.sendKeys(name);
 
-        Thread.sleep(2000);
+        WaitTextChanged(recordsTotalNumber, oldTotalNumber);
+
     }
+
     public List<String> getColumnValues(String columnName) throws Exception {
 
         List<String> vals = super.getColumnValues(columnName, tableServicesRows, tableServicesHeaders);
@@ -99,7 +108,7 @@ public class Services extends PageObjects{
 
         deleteServiceButton.click();
 
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(deleteConfirmationButtonPopUp));
 
         deleteConfirmationButtonPopUp.click();
     }

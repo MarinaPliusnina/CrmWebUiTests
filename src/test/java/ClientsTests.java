@@ -12,9 +12,11 @@ public class ClientsTests extends BaseTest{
     private Clients clients;
 
     public ClientsTests() throws Exception {
+
         super();
 
         clients = new Clients(driver);
+
     }
 
     @Test
@@ -23,7 +25,7 @@ public class ClientsTests extends BaseTest{
         // Act
         mainNavigation.navigateClientsPage(driver);
 
-        NewClientTestData clientTestData = NewClientTestData.createTestData1();
+        NewClientTestData clientTestData = NewClientTestData.createNewClientTestData();
 
         clients.createClient(clientTestData);
 

@@ -6,15 +6,19 @@ import org.openqa.selenium.WebElement;
 import pageObjects.Services;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ServicesTests extends BaseTest{
 
     private Services services;
 
     public ServicesTests() throws Exception {
+
         super();
 
         services = new Services(driver);
+
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 
     @Test
@@ -23,7 +27,7 @@ public class ServicesTests extends BaseTest{
         //Act
         mainNavigation.navigateServicesPage(driver);
 
-        NewServiceTestData serviceTestData = NewServiceTestData.createTestData1();
+        NewServiceTestData serviceTestData = NewServiceTestData.createNewServiceTestData();
 
         services.createService(serviceTestData);
 
@@ -38,7 +42,7 @@ public class ServicesTests extends BaseTest{
     }
 
     @After
-     public void deleteOutputTestData() throws Exception {
+    public void deleteOutputTestData() throws Exception {
 
         List<WebElement> record = services.getColumnLinks("Name");
 

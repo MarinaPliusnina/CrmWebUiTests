@@ -1,12 +1,45 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PageObjects {
+
+    protected WebDriver driver;
+
+    protected WebDriverWait wait;
+
+    protected PageObjects(WebDriver driver) {
+
+        this.driver = driver;
+
+        this.wait = new WebDriverWait(driver,2000);
+
+    }
+
+    protected void WaitTextChanged(WebElement webElement, String oldText) throws InterruptedException {
+
+        while (true) {
+
+            String newText = webElement.getText();
+
+            if (!newText.contentEquals(oldText)) {
+
+                break;
+            }
+
+            synchronized (driver) {
+
+                driver.wait(1000);
+
+            }
+        }
+    }
 
     protected List<WebElement> getColumnLinks(String columnName, List<WebElement> tableRows, List<WebElement> headerCells) throws Exception {
 
