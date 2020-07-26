@@ -1,18 +1,16 @@
 package pageObjects;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
+import testdata.NewMentorTestData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class Mentors {
-
-    private WebDriver driver;
+public class Mentors extends PageObjects{
 
     @FindBy(xpath = "//button[contains(text(),'Create')]")
     private WebElement createNewEmployeeButton;
@@ -23,7 +21,7 @@ public class Mentors {
     @FindBy(xpath = "//button[@name='refresh']")
     private WebElement refreshButton;
 
-   @FindAll(@FindBy(xpath = "//*[@class='table table-hover']//tr"))
+   @FindAll(@FindBy(xpath = "//*[@class='table table-hover']/tbody/tr"))
     private List<WebElement> tableEmployeesRows;
 
     @FindBy(xpath = "//span[@class='pagination-info']")
@@ -32,17 +30,55 @@ public class Mentors {
     @FindAll(@FindBy(xpath = "//*[@class='table table-hover']//th"))
     private List<WebElement> tableEmployeesHeaders;
 
+    @FindBy(xpath = "//input[@id='firstName']")
+    private WebElement inputFirstNamePopUp;
+
+    @FindBy(xpath = "//input[@id='lastName']")
+    private WebElement inputLastNamePopUp;
+
+    @FindBy(xpath = "//input[@id='maxClients']")
+    private WebElement inputMaxClientsPopUp;
+
+    @FindBy(xpath = "//button[contains(text(),'save')]")
+    private WebElement saveButtonPopUp;
+
+    @FindBy(xpath = "//button[@class='btn btn-default']")
+    private WebElement goToMentorsPageButton;
+
+    @FindBy(xpath = "//button[@class='btn btn-danger btn']")
+    private WebElement deleteMentorsButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Yes')]")
+    private WebElement deleteConfirmationButtonPopUp;
+
+    @FindBy(xpath = "//span[@class='pagination-info']")
+    private WebElement recordsTotalNumber;
+
     public Mentors(WebDriver driver)  {
 
-        this.driver = driver;
+        super(driver);
+
         PageFactory.initElements(driver, this);
+    }
+
+     public void createEmployee(NewMentorTestData newMentorTestData) throws InterruptedException {
+
+        createNewEmployeeButton.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(inputFirstNamePopUp));
+
+        inputFirstNamePopUp.sendKeys(newMentorTestData.getFirstName());
+
+        inputLastNamePopUp.sendKeys(newMentorTestData.getLastName());
+
+        inputMaxClientsPopUp.sendKeys(newMentorTestData.getMaxClients());
     }
 
     public  int getDescribedRowCount(WebDriver driver) {
 
         List<WebElement> trWebElements = tableEmployeesRows;
 
-        int describedRowCount =  trWebElements.size() - 1;
+        int describedRowCount =  trWebElements.size();
 
         return describedRowCount;
     }
@@ -60,59 +96,47 @@ public class Mentors {
         return rowCountsExpected;
     }
 
-    public List<String>  getColumnValues(WebDriver driver, String columnName) throws Exception {
+    public List<String> getColumnValues(String columnName) throws Exception {
 
-        int wantedColumnNumber = getColumnNumber(driver, columnName);
+        List<String> vals = super.getColumnValues(columnName, tableEmployeesRows, tableEmployeesHeaders);
 
-        List<WebElement> tableRows = getEmployeeTableRows(driver);
+        return vals;
 
-        List<String> resultArray = getColumnValues(wantedColumnNumber, tableRows);
+    }
+    public List<WebElement> getColumnLinks(String columnName) throws Exception {
 
-        return resultArray;
+        List<WebElement> links = super.getColumnLinks(columnName, tableEmployeesRows, tableEmployeesHeaders);
+
+        return links;
     }
 
-    private List<String> getColumnValues(int wantedColumnNumber, List<WebElement> tableRows) {
+    public void saveButtonPopUp() {
 
-        List<String> resultArray = new ArrayList<String>();
-
-        for (WebElement currentRow : tableRows) {
-
-            List<WebElement> cells = currentRow.findElements(new By.ByTagName("td"));
-
-            String cellText = cells.get(wantedColumnNumber).getText();
-
-            resultArray.add(cellText);
-        }
-
-        return resultArray;
+        saveButtonPopUp.click();
     }
 
-    private List<WebElement> getEmployeeTableRows(WebDriver driver) {
+    public void toMentorsPageButton() {
 
-        List<WebElement> tableRows = tableEmployeesRows;
-
-        tableRows = tableRows.subList(1,tableRows.size());
-
-        return tableRows;
+        goToMentorsPageButton.click();
     }
 
-    private int getColumnNumber(WebDriver driver, String columnName) throws Exception {
+    public void filterByName(String firstName) throws InterruptedException{
 
-        List<WebElement> headerRow = tableEmployeesHeaders;
+        String oldTotalNumber = recordsTotalNumber.getText();
 
-        for (int i=0; i < headerRow.size(); i++) {
+        searchButton.sendKeys(firstName);
 
-            WebElement currentWebElement = headerRow.get(i);
+        WaitTextChanged(recordsTotalNumber, oldTotalNumber);
+    }
 
-            String currentWebElementName = currentWebElement.getText();
+    public void deleteService(WebElement record) throws InterruptedException {
 
-            if (currentWebElementName.equals(columnName)) {
+        record.click();
 
-                return i;
+        deleteMentorsButton.click();
 
-            }
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(deleteConfirmationButtonPopUp));
 
-        throw new Exception("Column name not found");
+        deleteConfirmationButtonPopUp.click();
     }
 }
