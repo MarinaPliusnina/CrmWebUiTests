@@ -35,7 +35,7 @@ public class Utils {
         return randomNumber;
     }
 
-    public String getRandomString(Integer length) throws Exception {
+    public String getRandomString(Integer length) throws InvalidArgumentException {
 
         if (!(length>0)) throw new InvalidArgumentException("Length should be greater than 0");
 
