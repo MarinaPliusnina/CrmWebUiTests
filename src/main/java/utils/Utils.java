@@ -1,5 +1,7 @@
 package utils;
 
+import org.openqa.selenium.InvalidArgumentException;
+
 import java.util.Random;
 
 public class Utils {
@@ -18,7 +20,10 @@ public class Utils {
         return randomBooleanValue;
     }
 
-    public Double getRandomInteger(Integer min, Integer max, Integer precision) {
+    public Double getRandomDouble(Integer min, Integer max, Integer precision) throws InvalidArgumentException {
+
+        if (!(max > min)) throw new InvalidArgumentException("Max should be greater than min");
+        if (!(precision>=0)) throw new InvalidArgumentException("Precision value should be greater than O");
 
         int k =(int) Math.pow(10, precision);
 
@@ -30,7 +35,9 @@ public class Utils {
         return randomNumber;
     }
 
-    public String getRandomString(Integer length) {
+    public String getRandomString(Integer length) throws Exception {
+
+        if (!(length>0)) throw new InvalidArgumentException("Length should be greater than 0");
 
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
 
