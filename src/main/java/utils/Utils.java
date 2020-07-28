@@ -19,11 +19,32 @@ public class Utils {
 
         return randomBooleanValue;
     }
+    public Integer getRandomInteger(Integer max, Integer min) throws InvalidArgumentException {
+
+        if (!(max > min)) {
+
+            throw new InvalidArgumentException("Max should be greater than min");
+        }
+
+        int randomInteger = random.nextInt(max + 1 - min) + min;
+
+        return randomInteger;
+
+    }
 
     public Double getRandomDouble(Integer min, Integer max, Integer precision) throws InvalidArgumentException {
 
-        if (!(max > min)) throw new InvalidArgumentException("Max should be greater than min");
-        if (!(precision>=0)) throw new InvalidArgumentException("Precision value should be greater than O");
+        if (!(max > min)) {
+
+            throw new InvalidArgumentException("Max should be greater than min");
+
+        }
+
+        if (!(precision>=0)) {
+
+            throw new InvalidArgumentException("Precision value should be greater than O");
+
+        }
 
         int k =(int) Math.pow(10, precision);
 
@@ -37,7 +58,11 @@ public class Utils {
 
     public String getRandomString(Integer length) throws InvalidArgumentException {
 
-        if (!(length>0)) throw new InvalidArgumentException("Length should be greater than 0");
+        if (!(length>0)) {
+
+            throw new InvalidArgumentException("Length should be greater than 0");
+
+        }
 
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
 
