@@ -54,7 +54,7 @@ public class NewClientTestData {
 
     private static String getRandomString() {
 
-        return getRandomString(50);
+        return getRandomString(30);
     }
 
     private static String getRandomString(int maxLength) {
@@ -90,7 +90,7 @@ public class NewClientTestData {
         return rndString;
     }
 
-    public static Map<String,String> createNewClientTestData2()
+    public static Map<String,String> createMapClientTestData()
     {
         Map<String,String> mapClientTestData = new HashMap<String, String>();
         Utils ut = new Utils();
@@ -107,13 +107,13 @@ public class NewClientTestData {
         String city = getRandomString();
         mapClientTestData.put("City", city);
 
-        String email = getRandomString(64) + "@" + getRandomString(252) + ".com";
+        String email = getRandomString(20) + "@" + getRandomString(20) + ".com";
         mapClientTestData.put("Email", email);
 
         String phone = getRandomPhoneNumber(10);
         mapClientTestData.put("Phone", phone);
 
-        String skype = getRandomSkype(50);
+        String skype = getRandomSkype(15);
         mapClientTestData.put("Skype", skype);
 
         return mapClientTestData;

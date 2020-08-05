@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
+import java.util.*;
 
 public class Clients extends PageObjects{
 
@@ -73,6 +73,9 @@ public class Clients extends PageObjects{
     @FindBy(xpath = "//span[@class='pagination-info']")
     private WebElement recordsTotalNumber;
 
+    @FindBy(xpath = "//div[@class =\"modal-footer\"]/button[contains(text(),'Yes')]")
+    private WebElement deleteConfirmationButtonPopUp;
+
     public Clients(WebDriver driver) {
 
         super(driver);
@@ -92,6 +95,51 @@ public class Clients extends PageObjects{
 
     }
 
+    public void createClient (Map<String, String> mapClientTestData) throws InterruptedException {
+
+        createNewClientButton.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(newClientFirstName));
+
+        newClientFirstName.sendKeys(mapClientTestData.get("FirstName"));
+
+        newClientLastName.sendKeys(mapClientTestData.get("LastName"));
+
+    }
+
+    public void fillClientDetailsForm (Map<String, String> mapClientTestData) throws InterruptedException {
+
+        inputEmail(mapClientTestData.get("Email"));
+        inputCountry(mapClientTestData.get("Country"));
+        inputCity(mapClientTestData.get("City"));
+        inputPhone(mapClientTestData.get("Phone"));
+        inputSkype(mapClientTestData.get("Skype"));
+
+    }
+
+    public List<WebElement> getColumnLinks(String columnName) throws Exception {
+
+        List<WebElement> links = super.getColumnLinks(columnName, tableClientsRows, tableClientsHeaders);
+
+        return links;
+    }
+
+    public Map<String, String> getClientDetails() {
+
+    Map<String, String> map = new HashMap<String, String>();
+
+    map.put("FirstName", newClientFirstName.getAttribute("value"));
+    map.put("LastName", newClientLastName.getAttribute("value"));
+    map.put("Email", emailInput.getAttribute("value"));
+    map.put("Country", countryInput.getAttribute("value"));
+    map.put("City", cityInput.getAttribute("value"));
+    map.put("Phone", phoneInput.getAttribute("value"));
+    map.put("Skype", skypeInput.getAttribute("value"));
+
+    return map;
+
+    }
+
     public List<String> getColumnValues(String columnName) throws Exception {
 
         List<String> vals = super.getColumnValues(columnName, tableClientsRows, tableClientsHeaders);
@@ -108,6 +156,15 @@ public class Clients extends PageObjects{
 
         WaitTextChanged(recordsTotalNumber, oldTotalNumber);
 
+    }
+
+    public void deleteClient() throws InterruptedException {
+
+        buttonDelete.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(deleteConfirmationButtonPopUp));
+
+        deleteConfirmationButtonPopUp.click();
     }
 
     public void saveButtonPopUp() {
@@ -132,7 +189,7 @@ public class Clients extends PageObjects{
 
     public void inputPhone(String phone) {
 
-        cityInput.sendKeys(phone);
+        phoneInput.sendKeys(phone);
     }
 
     public void inputSkype(String skype) {

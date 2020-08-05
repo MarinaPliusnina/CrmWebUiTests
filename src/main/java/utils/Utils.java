@@ -21,7 +21,7 @@ public class Utils {
     }
     public Integer getRandomInteger(Integer max, Integer min) throws InvalidArgumentException {
 
-        if (!(max > min)) {
+        if (max < min) {
 
             throw new InvalidArgumentException("Max should be greater than min");
         }
