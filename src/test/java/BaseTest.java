@@ -1,3 +1,4 @@
+import DataBase.DataBase;
 import config.Config;
 import org.junit.After;
 import org.junit.Before;
@@ -7,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pageObjects.LogInPage;
 import pageObjects.MainNavigation;
+
+import java.sql.SQLException;
 
 public class BaseTest {
 
@@ -60,5 +63,15 @@ public class BaseTest {
             throw new Exception("Unknown driver browser type");
 
         }
+    }
+
+    protected void runAndPrint(String sQ) throws SQLException {
+        DataBase testDB = new DataBase();
+
+        testDB.connect();
+
+        String s = testDB.queryToString(sQ);
+
+        System.out.println(s);
     }
 }

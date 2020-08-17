@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Transactions {
+public class Deals {
 
     private WebDriver driver;
 
@@ -15,9 +15,10 @@ public class Transactions {
     @FindBy(xpath = "//button[@name='refresh']")
     private WebElement refreshButton;
 
-    public Transactions (WebDriver driver) {
+    public Deals (WebDriver driver) {
 
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 }
+

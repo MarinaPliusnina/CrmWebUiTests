@@ -1,5 +1,7 @@
+import java.sql.SQLException;
 import java.util.List;
 
+import DataBase.DataBase;
 import testdata.NewMentorTestData;
 import org.junit.Assert;
 import org.junit.Before;
@@ -63,5 +65,23 @@ public class MentorsTests extends BaseTest{
 
         mentors.deleteService(record.get(0));
     }
+
+    @Test
+    public void clientsContractsTest() throws Exception {
+
+        //Act
+
+        String sQ =
+                "select employee.first_name,employee.last_name\n" +
+                        "from employee\n" +
+                        "Where employee.max_clients>10\n" +
+                        "Order by Random()\n" +
+                        "Limit 1";
+
+        super.runAndPrint(sQ);
+
+    }
+
+
 
 }
